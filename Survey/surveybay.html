@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>SurveyBay</title>
+        <link rel="stylesheet" href="public/src/css/survey.css">
+    </head>
+    <body>
+        <header>
+            <h1>SurveyBay</h1>
+            <nav>
+                <ul>
+                    <li><a href="surveybay.html">Home</a></li>
+                    <li><a href="surveybay/login.html">Login</a></li>
+                    <li><a href="surveybay/sign%20up.html">Sign Up</a></li>
+                    <li><a href="/index.html">Vanilla</a></li>
+                </ul>
+            </nav>
+        </header>
+        <main>
+            <div id="survey-list">
+                <h2>Survey List</h2>
+                <a href="surveybay/survey.html">take survey</a>
+                <form action="" method="get" class="survey" id="survey-1">
+                    <fieldset class="question">
+                        <legend>Question 1</legend>
+                        <h3>Which do you prefer, Waffles or Pancakes?</h3>
+                        <input type="radio" name="question-1" id="waffles" required>
+                        <label for="waffles">Waffles</label>
+                        <input type="radio" name="question-1" id="pancakes" required>
+                        <label for="pancakes">Pancakes</label>
+                    </fieldset>
+                    <fieldset class="question">
+                        <legend>Question 2</legend>
+                        <h3>Pineapple on pizza?</h3>
+                        <input type="radio" name="question-2" id="yes" required>
+                        <label for="yes">Yes</label>
+                        <input type="radio" name="question-2" id="no" required>
+                        <label for="no">No</label>
+                    </fieldset>
+                    <fieldset class="question">
+                        <legend>Question 3</legend>
+                        <h3>What is your name?</h3>
+                        <input type="textbox" name="question-3" id="name" required>
+                        <label for="name">Yes</label>
+                    </fieldset>
+                    <div id="submit-button">
+                        <input type="submit" name="submit" id="submit" value="submit">
+                    </div>
+                </form>
+            </div>
+            <div id="balance">
+                <h2>Survey Points</h2>
+                <h3>10000</h3>
+                <p>click redeem to convert points into cash or prizes</p>
+                <input type="button" name="redeem" id="redeem" value="redeem">
+            </div>
+        </main>
+        <footer>
+            <p>copyright juanmcol</p>
+        </footer>
+    </body>
+</html>

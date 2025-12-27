@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>SurveyBay | Login</title>
+        <script type="module" src="../public/src/js/login.js" defer></script>
+    </head>
+    <body>
+        <header>
+            <h1>SurveyBay</h1>
+            <nav>
+                <ul>
+                    <li><a href="/Survey/surveybay.html">Home</a></li>
+                    <li><a href="/index.html">Vanilla</a></li>
+                </ul>
+            </nav>
+        </header>
+        <main>
+            <form action="" method="get" id="sign-up">
+                <div>
+                    <label for="username">Username:</label>
+                    <input type="text" name="username" id="username" required placeholder="2 - 8 characters">
+                </div>
+                <div>
+                    <label for="password">Password:</label>
+                    <input type="password" name="password" id="password" required placeholder="8 - 64 characters">
+                </div>
+                <button type="button" id="log-in">Log In</button>
+                <p id="message"></p>
+            </form>
+        </main>
+    </body>
+</html>
