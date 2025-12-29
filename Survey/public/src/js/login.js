@@ -12,14 +12,13 @@ const displayMessage = () => {
         message.textContent = "username or password is incorrect";
     } else {
         message.textContent = "Success! Logging in...";
-    }
-    
-    console.log(user);
-    setSessionUser(user);
+        console.log(user);
+        setSessionUser(user);
 
-    setTimeout(() => {
-        window.location.href = "../surveybay.html";
-    }, 3000);
+        setTimeout(() => {
+            window.location.href = "../surveybay.html";
+        }, 3000);
+    }
 }
 
 const login = document.getElementById("log-in");
