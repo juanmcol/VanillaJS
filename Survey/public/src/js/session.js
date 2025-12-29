@@ -3,10 +3,12 @@
 // and when they take surveys.
 // Also, add points to their balance after completing a survey.
 
-// PLUSSSSSSS, if you can, try to make a new getUsers() function
-// add "[" to the front of the the string, and "]" to the end...
-// then use JSON.parse, maybe that will work.
-
-function session(username, email, password) {
-    
+function setSessionUser(user) {
+    sessionStorage.setItem("Current User", JSON.stringify(user));
 }
+
+function getSessionUser() {
+    return JSON.parse(sessionStorage.getItem("Current User"));
+}
+
+export { setSessionUser, getSessionUser };

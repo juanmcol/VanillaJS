@@ -125,14 +125,13 @@ const stringifyUser = (userObj) => {
 
 // stringify all saved users
 const stringifyUsers = () => {
-    if(sessionStorage.getItem("User List").length < 1) {
+    if(sessionStorage.getItem("User List") === null) {
         for (let i = 0; i < users.length; ++i) {
             stringifyUser(users[i]);
         }
     } else {
         stringifyUser(users[users.length - 1]);
     }
-    setUsers();
 }
 
 // save the stringifiedUsers array to the session storage
@@ -142,21 +141,12 @@ const setUsers = () => {
 
 // get the user list from the session storage
 const getUsers = () => {
-    const userList = sessionStorage.getItem("User List");
-    let jsonString = "";
-    const userListParsed = [];
-    for (let i = 0; i < userList.length; ++i) {
-        if (userList[i] != "}") {
-            jsonString += userList[i];
-        } else {
-            jsonString += "}";
-            ++i;
-            let userObject = JSON.parse(jsonString);
-            userListParsed.push(userObject);
-            jsonString = "";
-        }
-    }
-    return userListParsed;
+    let sessionUsers = "[";
+    sessionUsers += sessionStorage.getItem("User List");
+    sessionUsers += "]";
+    const parsedUsers = JSON.parse(sessionUsers);
+
+    return parsedUsers;
 }
 
 export {addAccount, authorize};
