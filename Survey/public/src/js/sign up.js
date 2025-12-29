@@ -1,8 +1,10 @@
-import {addAccount} from "../../../private/src/js/users.js";
+import { authorize, addAccount, defaultUsers } from "../../../private/src/js/users.js";
+import { setSessionUser } from "./session.js";
 
 // if no error, continue to the main page
 // and be logged in.
 // create the login page.
+defaultUsers();
 
 const displayMessage = () => {
     const username = document.getElementById("username");
@@ -12,7 +14,19 @@ const displayMessage = () => {
     const status = addAccount(username.value, email.value, password.value);
 
     const message = document.getElementById("message");
-    message.textContent = status;
+    
+    if (status === -1) {
+        message.textContent = status;
+    } else {
+        message.textContent = "Success! Logging in...";
+        const user = authorize(username.value, password.value);
+        console.log(user);
+        setSessionUser(user);
+
+        setTimeout(() => {
+            window.location.href = "../surveybay.html";
+        }, 3000);
+    }
 }
 
 const create = document.getElementById("create-account");

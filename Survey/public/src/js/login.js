@@ -1,5 +1,7 @@
-import { authorize } from "../../../private/src/js/users.js";
+import { authorize, defaultUsers } from "../../../private/src/js/users.js";
 import { setSessionUser } from "./session.js";
+
+defaultUsers();
 
 const displayMessage = () => {
     const username = document.getElementById("username");

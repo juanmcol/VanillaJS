@@ -71,10 +71,13 @@ const validate = (username, email, password) => {
 const valid = (username, email, password) => {
     const status = validate(username, email, password);
     if (status === "1") {
+        if (sessionStorage.getItem("User List") === null) {
+            users = getUsers();
+        }
+
         users.push(new user(username, email, password));
         usernames.push(username);
         emails.push(email);
-        console.log(users);
         stringifyUsers();
         setUsers();
         console.log(sessionStorage.getItem("User List"));
@@ -115,12 +118,17 @@ const authorize = (username, password) => {
 }
 
 // array to hold stringified users
-const stringifiedUsers = [];
+let stringifiedUsers = [];
 
 // stringify a user and push to the stringifiedUsers array
 const stringifyUser = (userObj) => {
     const user = JSON.stringify(userObj);
     stringifiedUsers.push(user);
+}
+
+const stringifyParsedUsers = () => {
+    stringifiedUsers = [];
+    users.forEach(user => stringifyUser(user));
 }
 
 // stringify all saved users
@@ -130,7 +138,7 @@ const stringifyUsers = () => {
             stringifyUser(users[i]);
         }
     } else {
-        stringifyUser(users[users.length - 1]);
+        stringifyParsedUsers();
     }
 }
 
@@ -145,8 +153,22 @@ const getUsers = () => {
     sessionUsers += sessionStorage.getItem("User List");
     sessionUsers += "]";
     const parsedUsers = JSON.parse(sessionUsers);
+    console.log(parsedUsers);
 
     return parsedUsers;
 }
 
-export {addAccount, authorize};
+/* const getUsersStringified = () => {
+    return "[" + sessionStorage.getItem("User List") + "]";
+} */
+
+const defaultUsers = () => {
+    console.log(sessionStorage.getItem("User List"));
+    if (sessionStorage.getItem("User List") === null) {
+        stringifyUsers();
+        setUsers();
+        console.log(sessionStorage.getItem("User List"));
+    }
+}
+
+export {addAccount, authorize, defaultUsers};
