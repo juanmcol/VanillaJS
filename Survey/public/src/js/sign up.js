@@ -1,10 +1,11 @@
-import { authorize, addAccount, defaultUsers } from "../../../private/src/js/users.js";
+import { authorize, addAccount, defaultUsers, getUsernamesAndEmails } from "../../../private/src/js/users.js";
 import { setSessionUser } from "./session.js";
 
 // if no error, continue to the main page
 // and be logged in.
 // create the login page.
 defaultUsers();
+getUsernamesAndEmails();
 
 const displayMessage = () => {
     const username = document.getElementById("username");
@@ -15,12 +16,11 @@ const displayMessage = () => {
 
     const message = document.getElementById("message");
     
-    if (status === -1) {
+    if (status != "Success!") {
         message.textContent = status;
     } else {
         message.textContent = "Success! Logging in...";
         const user = authorize(username.value, password.value);
-        console.log(user);
         setSessionUser(user);
 
         setTimeout(() => {

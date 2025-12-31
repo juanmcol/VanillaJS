@@ -2,10 +2,10 @@
 let users = [];
 
 // usernames
-const usernames = ["firstuser"];
+let usernames = ["firstuser"];
 
 // emails
-const emails = ["myemail@email.com"];
+let emails = ["myemail1@email.com"];
 
 // user class
 class user {
@@ -32,14 +32,18 @@ class user {
     } */
 }
 
-const firstUser = new user("firstuser", "myemail@email.com", "password123");
-const secondtUser = new user("seconduser", "myemail2@email.com", "password456");
+const firstUser = new user("firstuser", "myemail1@email.com", "password123");
+const secondUser = new user("seconduser", "myemail2@email.com", "password456");
 users.push(firstUser);
-users.push(secondtUser);
+users.push(secondUser);
+usernames.push("seconduser");
+emails.push("myemail2@email.com");
 
 // check that the account is valid
 const validate = (username, email, password) => {
+    /* getUsernamesAndEmails(); */
     const usernameStatus = usernames.includes(username);
+
     if (username.length < 2) {
         return "This username is too short";
     } else if (username.length > 8) {
@@ -78,9 +82,10 @@ const valid = (username, email, password) => {
         users.push(new user(username, email, password));
         usernames.push(username);
         emails.push(email);
+        setUsernames();
+        setEmails();
         stringifyUsers();
         setUsers();
-        console.log(sessionStorage.getItem("User List"));
         return "Success!";
     } else {
         return status;
@@ -100,9 +105,6 @@ const verify = (username, password) => {
         if (users[i].username === username && users[i].password === password) {
             return users[i];
         }
-        /* console.log(i);
-        console.log(users[i].username);
-        console.log(users[i].password); */
     }
     return -1;
 }
@@ -153,7 +155,6 @@ const getUsers = () => {
     sessionUsers += sessionStorage.getItem("User List");
     sessionUsers += "]";
     const parsedUsers = JSON.parse(sessionUsers);
-    console.log(parsedUsers);
 
     return parsedUsers;
 }
@@ -162,13 +163,36 @@ const getUsers = () => {
     return "[" + sessionStorage.getItem("User List") + "]";
 } */
 
+// set default users
 const defaultUsers = () => {
-    console.log(sessionStorage.getItem("User List"));
     if (sessionStorage.getItem("User List") === null) {
         stringifyUsers();
         setUsers();
-        console.log(sessionStorage.getItem("User List"));
     }
 }
 
-export {addAccount, authorize, defaultUsers};
+
+// get and set usernames and emails
+const getUsernamesAndEmails = () => {
+    if (sessionStorage.getItem("Usernames") === null) {
+        setUsernames();
+    } else {
+        usernames = JSON.parse(sessionStorage.getItem("Usernames"));
+    }
+
+    if (sessionStorage.getItem("Emails") === null) {
+        setEmails();
+    } else {
+        emails = JSON.parse(sessionStorage.getItem("Emails"));
+    }
+}
+
+const setUsernames = () => {
+    sessionStorage.setItem("Usernames", JSON.stringify(usernames));
+}
+
+const setEmails = () => {
+    sessionStorage.setItem("Emails", JSON.stringify(emails));
+}
+
+export {addAccount, authorize, defaultUsers, getUsernamesAndEmails };

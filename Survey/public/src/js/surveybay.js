@@ -1,5 +1,8 @@
 import { getSessionUser } from "./session.js";
 
+// Make sure all default/new emails and usernames
+// are stored in the sessionStorage.
+
 const currentUser = getSessionUser();
 
 if (currentUser === null) {
