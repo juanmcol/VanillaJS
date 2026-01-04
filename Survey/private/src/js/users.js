@@ -13,6 +13,7 @@ class user {
         this.username = username;
         this.email = email;
         this.password = password;
+        this.points = 0;
     }
 
     set firstName(first) {
@@ -195,4 +196,8 @@ const setEmails = () => {
     sessionStorage.setItem("Emails", JSON.stringify(emails));
 }
 
-export {addAccount, authorize, defaultUsers, getUsernamesAndEmails };
+const addPoints = (user, surveyPoints) => {
+    user.points += surveyPoints;
+}
+
+export {addAccount, authorize, defaultUsers, getUsernamesAndEmails, addPoints };

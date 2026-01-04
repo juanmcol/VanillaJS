@@ -1,17 +1,13 @@
-/* const body = document.body;
-body.style.color = "green"; */
+import { addPoints } from "../../../private/src/js/users.js";
+import { getSessionUser, setSessionUser } from "./session.js";
 
 /*
 TO DO
 
-make a function to create a survey
-make a function to show a survey/form
 make a database holding all surveys as objects, survey class
 
-make a user login page
-hold all users in a database
-give users a points balance
-add points for completing surveys
+update the current user's points in the session storage user list,
+after a survey is completed.
 
 make a redeem page to use points for rewards/cash
 create a database filled with rewards to trade in with points
@@ -34,6 +30,10 @@ class Survey {
 
     set points(amount) {
         this.points = amount;
+    }
+
+    get points() {
+        return this.points;
     }
 
     addQuestion(question, inputType, answers) {
@@ -59,6 +59,7 @@ function displaySurvey(survey) {
     const body = document.body;
     const title = document.createElement("h1");
     const points = document.createElement("h2");
+    points.id = "points";
     title.textContent = survey.title;
     points.textContent = survey.points + " Points";
     body.appendChild(title);
@@ -119,6 +120,16 @@ function displaySurvey(survey) {
 }
 
 displaySurvey(test);
+
+const survey = document.getElementById("survey");
+const user = getSessionUser();
+
+survey.addEventListener("submit", event => {
+    event.preventDefault();
+    addPoints(user, test.points);
+    setSessionUser(user);
+    window.location.href = "../surveybay.html";
+})
 
 const body = document.body;
 body.style.color = "green";
