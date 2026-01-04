@@ -9,6 +9,8 @@ if (currentUser === null) {
     console.log("no current user");
 } else {
     console.log(currentUser);
+    const userPoints = document.getElementById("points");
+    userPoints.textContent = currentUser.points;
 }
 
 /* const body = document.body;
