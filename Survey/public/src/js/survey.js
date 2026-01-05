@@ -55,6 +55,18 @@ test.addQuestion("test question 2", "checkbox", ["check 1", "check 2"]);
 test.addQuestion("test question 3", "text", [""]);
 test.points = 100;
 
+const foodChoices = new Survey("Food Choices");
+foodChoices.addQuestion("Waffles or Pancakes?", "radio", ["Waffles", "Pancakes"]);
+foodChoices.addQuestion("Rice or Pasta?", "radio", ["Rice", "Pasta"]);
+foodChoices.addQuestion("Pineapple on Pizza?", "radio", ["Yes", "No"]);
+foodChoices.points = 1000;
+
+const license = new Survey("Driver's License");
+license.addQuestion("Which class is your driver's license?", "radio", ["A", "B", "C", "D", "M"]);
+license.points = 500;
+
+const surveys = [test, foodChoices, license];
+
 function displaySurvey(survey) {
     const body = document.body;
     const title = document.createElement("h1");
@@ -119,7 +131,8 @@ function displaySurvey(survey) {
     form.appendChild(submit);
 }
 
-displaySurvey(test);
+const randomSurvey = surveys[Math.floor(Math.random() * surveys.length)];
+displaySurvey(randomSurvey);
 
 const survey = document.getElementById("survey");
 const user = getSessionUser();
