@@ -4,18 +4,20 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>SurveyBay</title>
-        <link rel="stylesheet" href="public/src/css/survey.css">
+        <link rel="stylesheet" href="public/src/css/styles.css">
         <script type="module" src="public/src/js/surveybay.js" defer></script>
     </head>
     <body>
         <header>
-            <h1>SurveyBay</h1>
+            <h1><a href="surveybay.html">$urveyBay</a></h1>
             <nav>
                 <ul>
-                    <li><a href="surveybay.html">Home</a></li>
-                    <li><a href="surveybay/login.html">Log In</a></li>
-                    <li><a href="surveybay/sign%20up.html">Sign Up</a></li>
-                    <li><a href="https://juanmcol.github.io/VanillaJS/">Vanilla</a></li>
+                    <li id="username"><p>Username</p></li>
+                    <li id="home"><a href="surveybay.html">Home</a></li>
+                    <li id="log-in"><a href="surveybay/login.html">Log In</a></li>
+                    <li id="sign-up"><a href="surveybay/sign%20up.html">Sign Up</a></li>
+                    <li id="sign-out"><a href="">Sign Out</a></li>
+                    <li id="vanilla"><a href="https://juanmcol.github.io/VanillaJS/">Vanilla</a></li>
                 </ul>
             </nav>
         </header>
@@ -26,9 +28,8 @@
             </div>
             <div id="balance">
                 <h2>Current Survey Points</h2>
-                <h3 id="points">10000</h3>
-                <p>click redeem to convert points into cash or prizes</p>
-                <input type="button" name="redeem" id="redeem" value="redeem">
+                <h3 id="points">You must be logged in to view your points</h3>
+                <button id="redeem"><a href="surveybay/redeem.html">Redeem Points</a></button>
             </div>
         </main>
         <footer>
