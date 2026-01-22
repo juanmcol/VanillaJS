@@ -44,6 +44,12 @@ main {
     border: solid green 1px;
 
     padding: 2rem 3rem;
+
+    #contents {
+        user {
+            margin: 50px;
+        }
+    }
 }
 
 footer {
