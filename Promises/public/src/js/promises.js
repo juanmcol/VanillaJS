@@ -4,6 +4,12 @@
 // use promises and promise.all to fetch multiple categories
 // for a single example that will load something from each.
 
+const urlPhotos = "https://jsonplaceholder.typicode.com/photos";
+const urlComments = "https://jsonplaceholder.typicode.com/comments";
+const urlPosts = "https://jsonplaceholder.typicode.com/posts";
+const urlUsers = "https://jsonplaceholder.typicode.com/users";
+
+// function to fetch data from a url
 async function getData(url) {
     try {
         const response = await fetch(url);
@@ -19,65 +25,139 @@ async function getData(url) {
     }
 }
 
-const urlUsers = "https://jsonplaceholder.typicode.com/users";
-const users = await getData(urlUsers);
-
+// contents, where the data gets displayed
 const contents = document.getElementById("contents");
 
-const structureUserData = (user) => {
-    const id = user.id;
-    const name = user.name;
-    const username = user.username;
-    const email = user.email;
+// fetch users
+async function fetchUsers() {
+    contents.textContent = "";
+    const users = await getData(urlUsers);
+    
+    const structureUserData = (user) => {
+        const id = user.id;
+        const name = user.name;
+        const username = user.username;
+        const email = user.email;
+    
+        const address = user.address;
+        const street = address.street;
+        const suite = address.suite;
+        const city = address.city;
+        const zip = address.zipcode;
+    
+        const geo = address.geo;
+        const latitude = geo.lat;
+        const longitude = geo.lng;
+    
+        const phone = user.phone;
+        const website = user.website;
+    
+        const company = user.company;
+        const compName = company.name;
+        const compPhrase = company.catchPhrase;
+        const compStatement = company.bs;
+    
+        const userDiv = document.createElement("div");
+        userDiv.class = "user";
+    
+        const userHead = document.createElement("h3");
+        userHead.innerHTML = username + " (Structured)";
+    
+        const userData = document.createElement("p");
+        userData.innerHTML = `ID: ${id}<br>
+        Name: ${name}<br>
+        Username: ${username}<br>
+        Email: ${email}<br>
+        Address: ${street} ${suite}, ${city}, ${zip}<br>
+        Geolocation: ${latitude}, ${longitude}<br>
+        Phone: ${phone}<br>
+        Website: ${website}<br>
+        Company: ${compName}, "<i>${compPhrase}</i>", ${compStatement}`;
+    
+        userDiv.appendChild(userHead);
+        userDiv.appendChild(userData);
+        userData.style.lineHeight = "1.5rem";
+        userDiv.style.paddingBottom = "2rem";
+        contents.appendChild(userDiv);
+    }
+    
+    users.forEach(user => {
+        contents.innerHTML += `<h3>${JSON.stringify(user.username)}</h3>` + JSON.stringify(user);
+        structureUserData(user);
+    });
+}
 
-    const address = user.address;
-    const street = address.street;
-    const suite = address.suite;
-    const city = address.city;
-    const zip = address.zipcode;
+async function fetchPosts() {
+    contents.textContent = "";
+    const posts = await getData(urlPosts);
+    const users = await getData(urlUsers);
 
-    const geo = address.geo;
-    const latitude = geo.lat;
-    const longitude = geo.lng;
+    const idList = [];
+    users.forEach(user => {
+        idList.push([user.id, user.username]);
+    })
 
-    const phone = user.phone;
-    const website = user.website;
+    const structurePostData = (post) => {
+        const userId = post.userId;
+        const title = post.title;
+        const body = post.body;
+        let user = "";
 
-    const company = user.company;
-    const compName = company.name;
-    const compPhrase = company.catchPhrase;
-    const compStatement = company.bs;
+        idList.some(id => {
+            if (id[0] === userId) {
+                user = id[1];
+                return true;
+            }
+        })
 
-    const userDiv = document.createElement("div");
-    userDiv.class = "user";
+        const postDiv = document.createElement("div");
+        postDiv.class = "post";
+    
+        const postHead = document.createElement("h3");
+        postHead.innerHTML = `${title}<p>test</p>`;
+        
+        const postAuthor = document.createElement("h5");
+        postAuthor.innerHTML = "by " + user;
+    
+        const postData = document.createElement("p");
+        postData.innerHTML = body + ".";
 
-    const userHead = document.createElement("h3");
-    userHead.innerHTML = username + " (Structured)";
+        postDiv.append(postHead, postAuthor, postData);
+        postDiv.style.paddingBottom = "2rem";
+        contents.appendChild(postDiv);
+    }
 
-    const userData = document.createElement("p");
-    userData.innerHTML = `ID: ${id}<br>
-    Name: ${name}<br>
-    Username: ${username}<br>
-    Email: ${email}<br>
-    Address: ${street} ${suite}, ${city}, ${zip}<br>
-    Geolocation: ${latitude}, ${longitude}<br>
-    Phone: ${phone}<br>
-    Website: ${website}<br>
-    Company: ${compName}, "<i>${compPhrase}</i>", ${compStatement}`;
+    posts.forEach(post => {
+        /* contents.innerHTML += `${JSON.stringify(post)}<br><br>`; */
+        structurePostData(post);
+    });
+}
 
-    userDiv.appendChild(userHead);
-    userDiv.appendChild(userData);
-    userData.style.lineHeight = "1.5rem";
-    userDiv.style.paddingBottom = "2rem";
-    contents.appendChild(userDiv);
+async function fetchPhotos() {
+    contents.textContent = "";
+    const photos = await getData(urlPhotos);
+
+    const img = document.createElement("img")
+    console.log(photos[0].url);
+    img.src = photos[0].url;
+    img.width = 300;
+    img.height = 200;
+
+    contents.appendChild(img);
 }
 
 
-contents.textContent = "";
-users.forEach(user => {
-    contents.innerHTML += `<h3>${JSON.stringify(user.username)}</h3>` + JSON.stringify(user);
-    structureUserData(user);
-});
+
+// select categories
+const catPhotos = document.getElementById("photos");
+catPhotos.addEventListener("click", fetchPhotos);
+
+const catPosts = document.getElementById("posts");
+catPosts.addEventListener("click", fetchPosts);
+
+const catUsers = document.getElementById("users");
+catUsers.addEventListener("click", fetchUsers);
+
 
 // still running all lines of code? uncomment to test
 /* const body = document.body;
