@@ -113,45 +113,29 @@ async function fetchPosts() {
         const postDiv = document.createElement("div");
         postDiv.class = "post";
     
-        const postHead = document.createElement("h3");
-        postHead.innerHTML = `${title}<p>test</p>`;
+        const postHead = document.createElement("h2");
+        postHead.innerHTML = `${title.toUpperCase()}`;
         
-        const postAuthor = document.createElement("h5");
+        const postAuthor = document.createElement("h4");
         postAuthor.innerHTML = "by " + user;
     
         const postData = document.createElement("p");
         postData.innerHTML = body + ".";
 
         postDiv.append(postHead, postAuthor, postData);
-        postDiv.style.paddingBottom = "2rem";
+        postDiv.style.paddingTop = "2rem";
         contents.appendChild(postDiv);
     }
 
     posts.forEach(post => {
-        /* contents.innerHTML += `${JSON.stringify(post)}<br><br>`; */
         structurePostData(post);
+        contents.innerHTML += `${JSON.stringify(post)}<br><br>`;
     });
-}
-
-async function fetchPhotos() {
-    contents.textContent = "";
-    const photos = await getData(urlPhotos);
-
-    const img = document.createElement("img")
-    console.log(photos[0].url);
-    img.src = photos[0].url;
-    img.width = 300;
-    img.height = 200;
-
-    contents.appendChild(img);
 }
 
 
 
 // select categories
-const catPhotos = document.getElementById("photos");
-catPhotos.addEventListener("click", fetchPhotos);
-
 const catPosts = document.getElementById("posts");
 catPosts.addEventListener("click", fetchPosts);
 
